@@ -37,8 +37,8 @@ public class DependencyContainer {
 
             Key key = (Key) o;
 
-            if (!type.equals(key.type)) return false;
-            return tag != null ? tag.equals(key.tag) : key.tag == null;
+            return type.equals(key.type) &&
+                    (tag != null ? tag.equals(key.tag) : key.tag == null);
 
         }
 
@@ -54,7 +54,15 @@ public class DependencyContainer {
     private final Map<Key, ObjectFactory<?>> factories;
 
     public DependencyContainer() {
-        factories = new HashMap<>();
+        this(new HashMap<Key, ObjectFactory<?>>());
+    }
+
+    public DependencyContainer(@NonNull DependencyContainer container) {
+        this(new HashMap<>(container.factories));
+    }
+
+    private DependencyContainer(@NonNull Map<Key, ObjectFactory<?>> factories) {
+        this.factories = factories;
     }
 
     public void bind(@NonNull AbstractModule... modules) {
