@@ -2,8 +2,11 @@ package com.droibit.github.android.di;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
+@RestrictTo(LIBRARY)
 class SingletonFactory<T> implements ObjectFactory<T> {
 
     @Nullable

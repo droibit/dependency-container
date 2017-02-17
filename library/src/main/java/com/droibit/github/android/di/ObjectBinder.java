@@ -2,8 +2,11 @@ package com.droibit.github.android.di;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
 import com.droibit.github.android.di.DependencyContainer.Key;
+
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
 public class ObjectBinder<T> {
 
@@ -11,6 +14,7 @@ public class ObjectBinder<T> {
 
     private DependencyContainer container;
 
+    @RestrictTo(LIBRARY)
     ObjectBinder(Key key, DependencyContainer container) {
         this.key = key;
         this.container = container;

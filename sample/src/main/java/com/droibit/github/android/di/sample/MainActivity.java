@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void bind() {
+        protected void configure() {
             bind(Activity.class).provider(new ObjectFactory<Activity>() {
                 @NonNull
                 @Override

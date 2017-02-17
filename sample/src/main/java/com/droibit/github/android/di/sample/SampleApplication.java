@@ -15,12 +15,12 @@ public class SampleApplication extends Application {
 
         private final Application application;
 
-        public Module(@NonNull Application application) {
+        Module(@NonNull Application application) {
             this.application = application;
         }
 
         @Override
-        public void bind() {
+        protected void configure() {
             bind(Application.class).provider(new ObjectFactory<Application>() {
                 @NonNull
                 @Override

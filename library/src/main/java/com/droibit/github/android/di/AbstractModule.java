@@ -2,21 +2,25 @@ package com.droibit.github.android.di;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 
 import com.droibit.github.android.di.DependencyContainer.Key;
+
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
 public abstract class AbstractModule {
 
     private DependencyContainer container;
 
-    public abstract void bind();
+    protected abstract void configure();
 
-    final void bind(DependencyContainer container) {
+    @RestrictTo(LIBRARY)
+    final void bindTo(DependencyContainer container) {
         this.container = container;
-        this.bind();
+        this.configure();
     }
 
-    protected  <T> ObjectBinder<T> bind(@NonNull Class<T> target) {
+    protected <T> ObjectBinder<T> bind(@NonNull Class<T> target) {
         return bind(target, null);
     }
 

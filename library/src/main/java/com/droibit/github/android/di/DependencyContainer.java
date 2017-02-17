@@ -3,22 +3,24 @@ package com.droibit.github.android.di;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+
 public class DependencyContainer {
 
+    @RestrictTo(LIBRARY)
     static class Key {
 
-        @NonNull
         private final Type type;
 
-        @Nullable
         private final String tag;
 
-        Key(@NonNull Type type, @Nullable String tag) {
+        Key(Type type, String tag) {
             this.type = type;
             this.tag = tag;
         }
@@ -67,7 +69,7 @@ public class DependencyContainer {
 
     public void bind(@NonNull AbstractModule... modules) {
         for (AbstractModule module : modules) {
-            module.bind(this);
+            module.bindTo(this);
         }
     }
 
@@ -92,11 +94,13 @@ public class DependencyContainer {
         return get(String.class, tag);
     }
 
+    @NonNull
     public <T> T get(@NonNull Class<T> target) {
         return get(target, null);
     }
 
     @SuppressWarnings("unchecked")
+    @NonNull
     public <T> T get(@NonNull Class<T> target, String tag) {
         final Key key = new Key(target, tag);
         final ObjectFactory<?> factory = factories.get(key);
@@ -106,6 +110,7 @@ public class DependencyContainer {
         return (T) factory.get();
     }
 
+    @RestrictTo(LIBRARY)
     <T> void bind(Key key, ObjectFactory<T> factory) {
         factories.put(key, factory);
     }
