@@ -1,6 +1,7 @@
 package com.droibit.github.android.di.sample;
 
 import android.app.Activity;
+import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.util.Log;
 import com.droibit.github.android.di.AbstractModule;
 import com.droibit.github.android.di.DependencyContainer;
 import com.droibit.github.android.di.ObjectFactory;
+
+import static com.droibit.github.android.di.sample.SampleApplication.applicationContainer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,14 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DependencyContainer container = new DependencyContainer();
+        DependencyContainer container = new DependencyContainer(applicationContainer);
         container.bind(new Module(this));
+
+        Application application = container.get(Application.class);
+        Log.d(TAG, "application: " + application.toString());
 
         Item item1 = container.get(Item.class);
         Item item2 = container.get(Item.class);
