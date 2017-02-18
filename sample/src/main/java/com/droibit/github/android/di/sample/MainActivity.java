@@ -11,7 +11,7 @@ import com.droibit.github.android.di.AbstractModule;
 import com.droibit.github.android.di.DependencyContainer;
 import com.droibit.github.android.di.ObjectFactory;
 
-import static com.droibit.github.android.di.sample.SampleApplication.applicationContainer;
+import static com.droibit.github.android.di.sample.SampleApplication.appContainer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DependencyContainer container = new DependencyContainer(applicationContainer);
+        DependencyContainer container = new DependencyContainer(appContainer, /*allowOverride=*/false);
         container.bind(new Module(this));
 
         Application application = container.get(Application.class);

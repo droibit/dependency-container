@@ -39,12 +39,12 @@ public class SampleApplication extends Application {
         }
     }
 
-    public static DependencyContainer applicationContainer = new DependencyContainer();
+    public static DependencyContainer appContainer = new DependencyContainer();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        applicationContainer.bind(new Module(this));
+        appContainer.bind(new Module(this));
     }
 }

@@ -2,17 +2,21 @@ package com.droibit.github.android.di;
 
 import com.droibit.github.android.di.DependencyContainer.Key;
 
+import org.assertj.core.internal.cglib.proxy.Factory;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.assertj.core.api.Java6Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,19 +44,49 @@ public class DependencyContainerTest {
 
     @Test
     public void bind_bindTo() throws Exception {
-        final DependencyContainer container1 = new DependencyContainer(factories);
+        final DependencyContainer container1 = new DependencyContainer(factories, false);
         final AbstractModule module1 = mock(AbstractModule.class);
         container1.bind(module1);
 
         verify(module1).bindTo(container1);
         reset(module1);
 
-        final DependencyContainer container2 = new DependencyContainer(factories);
+        final DependencyContainer container2 = new DependencyContainer(factories, false);
         final AbstractModule module2 = mock(AbstractModule.class);
         container2.bind(module1, module2);
 
         verify(module2).bindTo(container2);
         verify(module2).bindTo(container2);
+    }
+
+    @SuppressWarnings("SuspiciousMethodCalls")
+    @Test
+    public void bind_notAllowOverride() throws Exception {
+        final DependencyContainer container = new DependencyContainer(factories, false);
+        when(factories.containsKey(any())).thenReturn(true);
+
+        try {
+            container.bind(mock(Key.class), mock(ObjectFactory.class));
+        } catch (Exception e) {
+            assertThat(e).isExactlyInstanceOf(IllegalArgumentException.class);
+        }
+
+        when(factories.containsKey(any())).thenReturn(false);
+        final Key key = mock(Key.class);
+        final ObjectFactory factory = mock(ObjectFactory.class);
+        container.bind(key, factory);
+
+        verify(factories).put(key, factory);
+    }
+
+    @Test
+    public void bind_allowOverride() throws Exception {
+        final DependencyContainer container = new DependencyContainer(factories, true);
+        final Key key = mock(Key.class);
+        final ObjectFactory factory = mock(ObjectFactory.class);
+        container.bind(key, factory);
+
+        verify(factories).put(any(Key.class), any(ObjectFactory.class));
     }
 
     @Test

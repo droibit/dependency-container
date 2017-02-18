@@ -56,17 +56,24 @@ public class DependencyContainer {
     @RestrictTo(TESTS)
     final Map<Key, ObjectFactory<?>> factories;
 
+    private final boolean allowOverride;
+
     public DependencyContainer() {
-        this(new HashMap<Key, ObjectFactory<?>>());
+        this(new HashMap<Key, ObjectFactory<?>>(), false);
     }
 
     public DependencyContainer(@NonNull DependencyContainer container) {
-        this(new HashMap<>(container.factories));
+        this(container, false);
+    }
+
+    public DependencyContainer(@NonNull DependencyContainer container, boolean allowOverride) {
+        this(new HashMap<>(container.factories), allowOverride);
     }
 
     @RestrictTo(TESTS)
-    DependencyContainer(@NonNull Map<Key, ObjectFactory<?>> factories) {
+    DependencyContainer(@NonNull Map<Key, ObjectFactory<?>> factories, boolean allowOverride) {
         this.factories = factories;
+        this.allowOverride = allowOverride;
     }
 
     public void bind(@NonNull AbstractModule... modules) {
@@ -114,6 +121,9 @@ public class DependencyContainer {
 
     @RestrictTo(LIBRARY)
     <T> void bind(Key key, ObjectFactory<T> factory) {
+        if (!allowOverride && factories.containsKey(key)) {
+            throw new IllegalArgumentException("Already exist: " + key);
+        }
         factories.put(key, factory);
     }
 }
