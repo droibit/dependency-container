@@ -2,7 +2,6 @@ package com.droibit.github.android.di;
 
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 
 import java.lang.reflect.Type;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static android.support.annotation.RestrictTo.Scope.TESTS;
 
 public class DependencyContainer {
 
@@ -53,7 +53,8 @@ public class DependencyContainer {
         }
     }
 
-    private final Map<Key, ObjectFactory<?>> factories;
+    @RestrictTo(TESTS)
+    final Map<Key, ObjectFactory<?>> factories;
 
     public DependencyContainer() {
         this(new HashMap<Key, ObjectFactory<?>>());
@@ -63,7 +64,8 @@ public class DependencyContainer {
         this(new HashMap<>(container.factories));
     }
 
-    private DependencyContainer(@NonNull Map<Key, ObjectFactory<?>> factories) {
+    @RestrictTo(TESTS)
+    DependencyContainer(@NonNull Map<Key, ObjectFactory<?>> factories) {
         this.factories = factories;
     }
 

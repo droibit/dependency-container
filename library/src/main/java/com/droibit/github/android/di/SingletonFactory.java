@@ -5,14 +5,16 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static android.support.annotation.RestrictTo.Scope.TESTS;
 
 @RestrictTo(LIBRARY)
 class SingletonFactory<T> implements ObjectFactory<T> {
 
+    @RestrictTo(TESTS)
+    final ObjectFactory<T> rawFactory;
+
     @Nullable
     private T instance;
-
-    private final ObjectFactory<T> rawFactory;
 
     private final Object lock;
 

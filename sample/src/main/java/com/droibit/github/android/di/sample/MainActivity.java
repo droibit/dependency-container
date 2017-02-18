@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            bindInt("int").provider(new ObjectFactory<Integer>() {
+            bindInteger("int").provider(new ObjectFactory<Integer>() {
                 @NonNull
                 @Override
                 public Integer get() {

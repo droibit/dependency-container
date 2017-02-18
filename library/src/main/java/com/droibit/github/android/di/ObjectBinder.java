@@ -7,12 +7,15 @@ import android.support.annotation.RestrictTo;
 import com.droibit.github.android.di.DependencyContainer.Key;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static android.support.annotation.RestrictTo.Scope.TESTS;
 
 public class ObjectBinder<T> {
 
-    private Key key;
+    @RestrictTo(TESTS)
+    Key key;
 
-    private DependencyContainer container;
+    @RestrictTo(TESTS)
+    DependencyContainer container;
 
     @RestrictTo(LIBRARY)
     ObjectBinder(Key key, DependencyContainer container) {

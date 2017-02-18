@@ -28,7 +28,7 @@ public abstract class AbstractModule {
         return new ObjectBinder<>(new Key(target, tag), container);
     }
 
-    protected ObjectBinder<Integer> bindInt(@NonNull String tag) {
+    protected ObjectBinder<Integer> bindInteger(@NonNull String tag) {
         return new ObjectBinder<>(new Key(Integer.class, tag), container);
     }
 
