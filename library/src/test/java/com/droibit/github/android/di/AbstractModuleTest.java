@@ -1,5 +1,7 @@
 package com.droibit.github.android.di;
 
+import android.support.annotation.NonNull;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,6 +45,35 @@ public class AbstractModuleTest {
         final ObjectBinder<Data> binder2 = module.bind(Data.class, "test");
         assertThat(binder2.key).isEqualTo(new DependencyContainer.Key(Data.class, "test"));
         assertThat(binder2.container).isSameAs(container);
+    }
+
+    @Test
+    public void configure() throws Exception {
+        final DependencyContainer container = new DependencyContainer();
+        container.bind(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(Data.class).provider(new ObjectFactory<Data>() {
+                    @NonNull
+                    @Override
+                    public Data get() {
+                        return new Data(getString("text"));
+                    }
+                });
+                bindString("text").provider(new ObjectFactory<String>() {
+                    @NonNull
+                    @Override
+                    public String get() {
+                        return "test";
+                    }
+                });
+            }
+        });
+
+        final Data actualData = container.get(Data.class);
+        final String actualText = container.getString("text");
+
+        assertThat(actualData.text).isEqualTo(actualText);
     }
 
     @Test
