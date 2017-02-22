@@ -25,11 +25,11 @@ class SingletonFactory<T> implements ObjectFactory<T> {
 
     @NonNull
     @Override
-    public T get() {
+    public T getInstance() {
         if (instance == null) {
             synchronized (lock) {
                 if (instance == null) {
-                    instance = rawFactory.get();
+                    instance = rawFactory.getInstance();
                 }
             }
         }

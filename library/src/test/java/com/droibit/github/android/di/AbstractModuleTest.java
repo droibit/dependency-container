@@ -56,14 +56,14 @@ public class AbstractModuleTest {
                 bind(Data.class).provider(new ObjectFactory<Data>() {
                     @NonNull
                     @Override
-                    public Data get() {
+                    public Data getInstance() {
                         return new Data(getString("text"));
                     }
                 });
                 bindString("text").provider(new ObjectFactory<String>() {
                     @NonNull
                     @Override
-                    public String get() {
+                    public String getInstance() {
                         return "test";
                     }
                 });

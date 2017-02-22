@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             bind(Activity.class).provider(new ObjectFactory<Activity>() {
                 @NonNull
                 @Override
-                public Activity get() {
+                public Activity getInstance() {
                     return activity;
                 }
             });
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             bind(Item.class).singleton(new ObjectFactory<Item>() {
                 @NonNull
                 @Override
-                public Item get() {
+                public Item getInstance() {
                     return new Item(
                         /*text=*/getString("text1"),
                         /*value=*/getInteger("int")
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             bindString("text1").provider(new ObjectFactory<String>() {
                 @NonNull
                 @Override
-                public String get() {
+                public String getInstance() {
                     return "text_1";
                 }
             });
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             bindString("text2").provider(new ObjectFactory<String>() {
                 @NonNull
                 @Override
-                public String get() {
+                public String getInstance() {
                     return "text_2";
                 }
             });
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             bindInteger("int").provider(new ObjectFactory<Integer>() {
                 @NonNull
                 @Override
-                public Integer get() {
+                public Integer getInstance() {
                     return Integer.MAX_VALUE;
                 }
             });

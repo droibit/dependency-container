@@ -24,7 +24,7 @@ public class SampleApplication extends Application {
             bind(Application.class).provider(new ObjectFactory<Application>() {
                 @NonNull
                 @Override
-                public Application get() {
+                public Application getInstance() {
                     return application;
                 }
             });
@@ -32,7 +32,7 @@ public class SampleApplication extends Application {
             bind(Context.class, "applicationContext").provider(new ObjectFactory<Context>() {
                 @NonNull
                 @Override
-                public Context get() {
+                public Context getInstance() {
                     return application;
                 }
             });

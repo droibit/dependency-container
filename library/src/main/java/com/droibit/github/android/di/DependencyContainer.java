@@ -120,7 +120,7 @@ public class DependencyContainer {
         if (factory == null) {
             throw new RuntimeException("Does not exist: " + key);
         }
-        return (T) factory.get();
+        return (T) factory.getInstance();
     }
 
     @RestrictTo(LIBRARY)

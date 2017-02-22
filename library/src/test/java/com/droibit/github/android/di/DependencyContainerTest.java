@@ -91,7 +91,7 @@ public class DependencyContainerTest {
         final DependencyContainer container1 = new DependencyContainer();
         final Key key1 = new Key(Data.class, null);
         final Data data1 = mock(Data.class);
-        final ObjectFactory<Data> factory1 = when(mock(ObjectFactory.class).get()).thenReturn(data1).getMock();
+        final ObjectFactory<Data> factory1 = when(mock(ObjectFactory.class).getInstance()).thenReturn(data1).getMock();
         container1.bind(key1, factory1);
 
         final Data actualData1 = container1.get(Data.class);
@@ -100,7 +100,7 @@ public class DependencyContainerTest {
         final DependencyContainer container2 = new DependencyContainer();
         final Key key2 = new Key(Data.class, "data");
         final Data data2 = mock(Data.class);
-        final ObjectFactory<Data> factory2 = when(mock(ObjectFactory.class).get()).thenReturn(data2).getMock();
+        final ObjectFactory<Data> factory2 = when(mock(ObjectFactory.class).getInstance()).thenReturn(data2).getMock();
         container2.bind(key2, factory2);
 
         final Data actualData2 = container2.get(Data.class, "data");
@@ -118,7 +118,7 @@ public class DependencyContainerTest {
     public void getBoolean() throws Exception {
         final DependencyContainer container = new DependencyContainer();
         final Key key = new Key(Boolean.class, "bool");
-        final ObjectFactory<Boolean> factory = when(mock(ObjectFactory.class).get()).thenReturn(true).getMock();
+        final ObjectFactory<Boolean> factory = when(mock(ObjectFactory.class).getInstance()).thenReturn(true).getMock();
         container.bind(key, factory);
 
         final boolean value = container.getBoolean("bool");
@@ -129,7 +129,7 @@ public class DependencyContainerTest {
     public void getInteger() throws Exception {
         final DependencyContainer container = new DependencyContainer();
         final Key key = new Key(Integer.class, "int");
-        final ObjectFactory<Integer> factory = when(mock(ObjectFactory.class).get()).thenReturn(Integer.MAX_VALUE).getMock();
+        final ObjectFactory<Integer> factory = when(mock(ObjectFactory.class).getInstance()).thenReturn(Integer.MAX_VALUE).getMock();
         container.bind(key, factory);
 
         final int value = container.getInteger("int");
@@ -140,7 +140,7 @@ public class DependencyContainerTest {
     public void getLong() throws Exception {
         final DependencyContainer container = new DependencyContainer();
         final Key key = new Key(Long.class, "long");
-        final ObjectFactory<Long> factory = when(mock(ObjectFactory.class).get()).thenReturn(Long.MAX_VALUE).getMock();
+        final ObjectFactory<Long> factory = when(mock(ObjectFactory.class).getInstance()).thenReturn(Long.MAX_VALUE).getMock();
         container.bind(key, factory);
 
         final long value = container.getLong("long");
@@ -151,7 +151,7 @@ public class DependencyContainerTest {
     public void getFloat() throws Exception {
         final DependencyContainer container = new DependencyContainer();
         final Key key = new Key(Float.class, "float");
-        final ObjectFactory<Float> factory = when(mock(ObjectFactory.class).get()).thenReturn(Float.MAX_VALUE).getMock();
+        final ObjectFactory<Float> factory = when(mock(ObjectFactory.class).getInstance()).thenReturn(Float.MAX_VALUE).getMock();
         container.bind(key, factory);
 
         final float value = container.getFloat("float");
@@ -162,7 +162,7 @@ public class DependencyContainerTest {
     public void getDouble() throws Exception {
         final DependencyContainer container = new DependencyContainer();
         final Key key = new Key(Double.class, "float");
-        final ObjectFactory<Double> factory = when(mock(ObjectFactory.class).get()).thenReturn(Double.MAX_VALUE).getMock();
+        final ObjectFactory<Double> factory = when(mock(ObjectFactory.class).getInstance()).thenReturn(Double.MAX_VALUE).getMock();
         container.bind(key, factory);
 
         final double value = container.getDouble("float");
@@ -173,7 +173,7 @@ public class DependencyContainerTest {
     public void getString() throws Exception {
         final DependencyContainer container = new DependencyContainer();
         final Key key = new Key(String.class, "string");
-        final ObjectFactory<String> factory = when(mock(ObjectFactory.class).get()).thenReturn("test").getMock();
+        final ObjectFactory<String> factory = when(mock(ObjectFactory.class).getInstance()).thenReturn("test").getMock();
         container.bind(key, factory);
 
         final String value = container.getString("string");
