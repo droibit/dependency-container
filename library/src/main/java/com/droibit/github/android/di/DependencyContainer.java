@@ -82,6 +82,10 @@ public class DependencyContainer {
         }
     }
 
+    public boolean getBoolean(@NonNull String tag) {
+        return get(Boolean.class, tag);
+    }
+
     public int getInteger(@NonNull String tag) {
         return get(Integer.class, tag);
     }

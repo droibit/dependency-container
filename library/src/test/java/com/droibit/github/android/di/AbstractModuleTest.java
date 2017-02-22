@@ -77,6 +77,13 @@ public class AbstractModuleTest {
     }
 
     @Test
+    public void bindBoolean_shouldReturnObjectBinder() throws Exception {
+        final ObjectBinder<Boolean> binder = module.bindBoolean("bool");
+        assertThat(binder.key).isEqualTo(new DependencyContainer.Key(Boolean.class, "bool"));
+        assertThat(binder.container).isSameAs(container);
+    }
+
+    @Test
     public void bindInteger_shouldReturnObjectBinder() throws Exception {
         final ObjectBinder<Integer> binder = module.bindInteger("int");
         assertThat(binder.key).isEqualTo(new DependencyContainer.Key(Integer.class, "int"));

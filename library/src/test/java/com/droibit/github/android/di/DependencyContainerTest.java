@@ -2,21 +2,18 @@ package com.droibit.github.android.di;
 
 import com.droibit.github.android.di.DependencyContainer.Key;
 
-import org.assertj.core.internal.cglib.proxy.Factory;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.assertj.core.api.Java6Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -115,6 +112,17 @@ public class DependencyContainerTest {
         final DependencyContainer container = new DependencyContainer();
         container.get(Data.class);
         fail("error");
+    }
+
+    @Test
+    public void getBoolean() throws Exception {
+        final DependencyContainer container = new DependencyContainer();
+        final Key key = new Key(Boolean.class, "bool");
+        final ObjectFactory<Boolean> factory = when(mock(ObjectFactory.class).get()).thenReturn(true).getMock();
+        container.bind(key, factory);
+
+        final boolean value = container.getBoolean("bool");
+        assertThat(value).isTrue();
     }
 
     @Test
