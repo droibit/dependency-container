@@ -130,6 +130,12 @@ public class AbstractModuleTest {
     }
 
     @Test
+    public void getBoolean_shouldDelegateDependencyContainer() throws Exception {
+        module.getBoolean("bool");
+        verify(container).getBoolean("bool");
+    }
+
+    @Test
     public void getInteger_shouldDelegateDependencyContainer() throws Exception {
         module.getInteger("int");
         verify(container).getInteger("int");

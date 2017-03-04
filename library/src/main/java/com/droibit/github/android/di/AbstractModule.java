@@ -60,6 +60,10 @@ public abstract class AbstractModule {
         return container.get(target, tag);
     }
 
+    protected boolean getBoolean(@NonNull String tag) {
+        return container.getBoolean(tag);
+    }
+
     protected int getInteger(@NonNull String tag) {
         return container.getInteger(tag);
     }
