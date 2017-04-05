@@ -3,14 +3,15 @@ package com.droibit.github.android.di;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.support.annotation.VisibleForTesting;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
-import static android.support.annotation.RestrictTo.Scope.TESTS;
+import static android.support.annotation.VisibleForTesting.PRIVATE;
 
 @RestrictTo(LIBRARY)
 class SingletonFactory<T> implements ObjectFactory<T> {
 
-    @RestrictTo(TESTS)
+    @VisibleForTesting(otherwise = PRIVATE)
     final ObjectFactory<T> rawFactory;
 
     @Nullable

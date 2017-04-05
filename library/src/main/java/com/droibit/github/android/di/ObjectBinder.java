@@ -3,22 +3,23 @@ package com.droibit.github.android.di;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+import android.support.annotation.VisibleForTesting;
 
 import com.droibit.github.android.di.DependencyContainer.Key;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
-import static android.support.annotation.RestrictTo.Scope.TESTS;
+import static android.support.annotation.VisibleForTesting.PRIVATE;
 
 public class ObjectBinder<T> {
 
-    @RestrictTo(TESTS)
-    Key key;
+    @VisibleForTesting(otherwise = PRIVATE)
+    final Key key;
 
-    @RestrictTo(TESTS)
-    DependencyContainer container;
+    @VisibleForTesting(otherwise = PRIVATE)
+    final DependencyContainer container;
 
     @RestrictTo(LIBRARY)
-    ObjectBinder(Key key, DependencyContainer container) {
+    ObjectBinder(@NonNull Key key, @NonNull DependencyContainer container) {
         this.key = key;
         this.container = container;
     }

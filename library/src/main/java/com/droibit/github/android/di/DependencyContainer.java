@@ -2,15 +2,18 @@ package com.droibit.github.android.di;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.support.annotation.VisibleForTesting;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
-import static android.support.annotation.RestrictTo.Scope.TESTS;
+import static android.support.annotation.VisibleForTesting.PRIVATE;
 
+@SuppressWarnings("WeakerAccess")
 public class DependencyContainer {
 
     @RestrictTo(LIBRARY)
@@ -53,7 +56,7 @@ public class DependencyContainer {
         }
     }
 
-    @RestrictTo(TESTS)
+    @VisibleForTesting(otherwise = PRIVATE)
     final Map<Key, ObjectFactory<?>> factories;
 
     private final boolean allowOverride;
@@ -70,7 +73,7 @@ public class DependencyContainer {
         this(new HashMap<>(container.factories), allowOverride);
     }
 
-    @RestrictTo(TESTS)
+    @VisibleForTesting(otherwise = PRIVATE)
     DependencyContainer(@NonNull Map<Key, ObjectFactory<?>> factories, boolean allowOverride) {
         this.factories = factories;
         this.allowOverride = allowOverride;
@@ -114,7 +117,7 @@ public class DependencyContainer {
 
     @SuppressWarnings("unchecked")
     @NonNull
-    public <T> T get(@NonNull Class<T> target, String tag) {
+    public <T> T get(@NonNull Class<T> target, @Nullable String tag) {
         final Key key = new Key(target, tag);
         final ObjectFactory<?> factory = factories.get(key);
         if (factory == null) {
@@ -124,7 +127,7 @@ public class DependencyContainer {
     }
 
     @RestrictTo(LIBRARY)
-    <T> void bind(Key key, ObjectFactory<T> factory) {
+    <T> void bind(@NonNull Key key, @NonNull ObjectFactory<T> factory) {
         if (!allowOverride && factories.containsKey(key)) {
             throw new IllegalArgumentException("Already exist: " + key);
         }

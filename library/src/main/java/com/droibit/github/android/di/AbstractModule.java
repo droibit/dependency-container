@@ -8,6 +8,7 @@ import com.droibit.github.android.di.DependencyContainer.Key;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class AbstractModule {
 
     private DependencyContainer container;
