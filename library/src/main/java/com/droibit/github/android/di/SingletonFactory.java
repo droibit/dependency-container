@@ -17,18 +17,15 @@ class SingletonFactory<T> implements ObjectFactory<T> {
     @Nullable
     private T instance;
 
-    private final Object lock;
-
     SingletonFactory(@NonNull ObjectFactory<T> rawFactory) {
         this.rawFactory = rawFactory;
-        this.lock = new Object();
     }
 
     @NonNull
     @Override
     public T getInstance() {
         if (instance == null) {
-            synchronized (lock) {
+            synchronized (rawFactory) {
                 if (instance == null) {
                     instance = rawFactory.getInstance();
                 }
